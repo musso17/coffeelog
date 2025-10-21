@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+'use client';
+
+import Link from 'next/link';
+import { useAuth } from '@/hooks/useAuth';
 
 const quickLinks = [
   { to: '/coffees', title: 'Tus cafés', description: 'Crea y gestiona tus cafés favoritos.' },
@@ -27,7 +29,7 @@ const Dashboard = () => {
         {quickLinks.map((link) => (
           <Link
             key={link.to}
-            to={link.to}
+            href={link.to}
             className="rounded-xl border border-slate-200 bg-white/80 px-4 py-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
           >
             <h3 className="text-lg font-semibold text-slate-800">{link.title}</h3>

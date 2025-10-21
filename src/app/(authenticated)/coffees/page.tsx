@@ -1,9 +1,11 @@
+'use client';
+
 import { useEffect, useMemo, useState } from 'react';
-import { supabase } from '../lib/supabaseClient';
-import type { Brew, Coffee, Recipe, SensoryNote } from '../lib/types';
-import { useSupabaseMutation, useSupabaseQuery, useQueryClient } from '../hooks/useQuery';
-import { useToast } from '../hooks/useToast';
-import { costPerCup } from '../lib/calc';
+import { supabase } from '@/lib/supabaseClient';
+import type { Brew, Coffee, Recipe, SensoryNote } from '@/lib/types';
+import { useSupabaseMutation, useSupabaseQuery, useQueryClient } from '@/hooks/useQuery';
+import { useToast } from '@/hooks/useToast';
+import { costPerCup } from '@/lib/calc';
 
 const fetchCoffees = async (): Promise<Coffee[]> => {
   const { data, error } = await supabase

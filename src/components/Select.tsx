@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import type { Option } from '../lib/types';
+import type { Option } from '@/lib/types';
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   options: Option[];

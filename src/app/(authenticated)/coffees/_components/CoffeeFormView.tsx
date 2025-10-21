@@ -1,12 +1,15 @@
+'use client';
+
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { supabase } from '../lib/supabaseClient';
-import type { Coffee } from '../lib/types';
-import FormField from '../components/FormField';
-import { TagInput } from '../components/TagInput';
-import { useSupabaseQuery, useQueryClient } from '../hooks/useQuery';
-import { useToast } from '../hooks/useToast';
+import { supabase } from '@/lib/supabaseClient';
+import type { Coffee } from '@/lib/types';
+import FormField from '@/components/FormField';
+import { TagInput } from '@/components/TagInput';
+import { useSupabaseQuery, useQueryClient } from '@/hooks/useQuery';
+import { useToast } from '@/hooks/useToast';
 
 const processOptions = [
   { value: 'washed', label: 'Lavado' },
@@ -54,15 +57,16 @@ const fetchCoffeeById = async (id: string) => {
 };
 
 const CoffeeForm = () => {
-  const { id } = useParams<{ id: string }>();
+  const params = useParams<{ id?: string }>();
+  const id = params?.id;
   const isEditing = Boolean(id);
-  const navigate = useNavigate();
+  const router = useRouter();
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
   const { data: coffee, isLoading } = useSupabaseQuery(
     ['coffee', id],
-    () => fetchCoffeeById(id!),
+    () => fetchCoffeeById(id as string),
     { enabled: isEditing },
   );
 
@@ -140,7 +144,7 @@ const CoffeeForm = () => {
         toast({ title: 'Coffee creado', variant: 'success' });
       }
       queryClient.invalidateQueries({ queryKey: ['coffees'] });
-      navigate('/coffees');
+      router.push('/coffees');
     } catch (error) {
       console.error(error);
       toast({
@@ -172,7 +176,7 @@ const CoffeeForm = () => {
           </p>
         </div>
         <Link
-          to="/coffees"
+          href="/coffees"
           className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100"
         >
           Cancelar
@@ -377,7 +381,7 @@ const CoffeeForm = () => {
 
         <div className="flex justify-end gap-3">
           <Link
-            to="/coffees"
+            href="/coffees"
             className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100"
           >
             Cancelar

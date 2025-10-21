@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom';
-import { supabase } from '../lib/supabaseClient';
-import type { Brew } from '../lib/types';
-import { useSupabaseMutation, useSupabaseQuery, useQueryClient } from '../hooks/useQuery';
-import { useToast } from '../hooks/useToast';
+'use client';
+
+import Link from 'next/link';
+import { supabase } from '@/lib/supabaseClient';
+import type { Brew } from '@/lib/types';
+import { useSupabaseMutation, useSupabaseQuery, useQueryClient } from '@/hooks/useQuery';
+import { useToast } from '@/hooks/useToast';
 
 interface BrewWithMeta extends Brew {
   coffee_name: string;
@@ -84,7 +86,7 @@ const Brews = () => {
           </p>
         </div>
         <Link
-          to="/brews/new"
+          href="/brews/new"
           className="rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-primary-700"
         >
           Nuevo Brew
@@ -153,7 +155,7 @@ const Brews = () => {
                   <td className="px-4 py-3 text-right">
                     <div className="flex justify-end gap-2">
                       <Link
-                        to={`/brews/${brew.id}`}
+                        href={`/brews/${brew.id}`}
                         className="rounded-md border border-primary-200 px-3 py-1 text-xs font-medium text-primary-700 transition hover:bg-primary-50"
                       >
                         Ver / Editar

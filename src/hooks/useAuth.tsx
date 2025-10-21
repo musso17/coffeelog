@@ -1,3 +1,5 @@
+'use client';
+
 import {
   createContext,
   useCallback,
@@ -8,7 +10,7 @@ import {
 } from 'react';
 import type { ReactNode } from 'react';
 import type { AuthError, Session, User } from '@supabase/supabase-js';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '@/lib/supabaseClient';
 
 type SignInPayload = { email: string; password: string };
 type SignUpPayload = { email: string; password: string };

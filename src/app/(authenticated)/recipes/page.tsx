@@ -1,9 +1,11 @@
+'use client';
+
+import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { supabase } from '../lib/supabaseClient';
-import type { Recipe } from '../lib/types';
-import { useSupabaseMutation, useSupabaseQuery, useQueryClient } from '../hooks/useQuery';
-import { useToast } from '../hooks/useToast';
+import { supabase } from '@/lib/supabaseClient';
+import type { Recipe } from '@/lib/types';
+import { useSupabaseMutation, useSupabaseQuery, useQueryClient } from '@/hooks/useQuery';
+import { useToast } from '@/hooks/useToast';
 
 const fetchRecipes = async (): Promise<Recipe[]> => {
   const { data, error } = await supabase
@@ -63,7 +65,7 @@ const Recipes = () => {
           <p className="text-sm text-slate-600">Define parámetros claros para tus métodos favoritos.</p>
         </div>
         <Link
-          to="/recipes/new"
+          href="/recipes/new"
           className="rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-primary-700"
         >
           Nueva Recipe
@@ -115,7 +117,7 @@ const Recipes = () => {
                 </div>
                 <div className="flex gap-2">
                   <Link
-                    to={`/recipes/${recipe.id}`}
+                    href={`/recipes/${recipe.id}`}
                     className="rounded-md border border-primary-200 px-3 py-1 text-xs font-medium text-primary-700 transition hover:bg-primary-50"
                   >
                     Editar

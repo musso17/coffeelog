@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import {
   Chart as ChartJS,
@@ -9,9 +11,9 @@ import {
   Tooltip,
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
-import { supabase } from '../lib/supabaseClient';
-import type { Brew, SensoryNote, SCABreakdown } from '../lib/types';
-import { useSupabaseQuery } from '../hooks/useQuery';
+import { supabase } from '@/lib/supabaseClient';
+import type { Brew, SensoryNote, SCABreakdown } from '@/lib/types';
+import { useSupabaseQuery } from '@/hooks/useQuery';
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 

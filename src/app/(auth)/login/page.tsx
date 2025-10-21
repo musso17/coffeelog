@@ -1,12 +1,15 @@
+'use client';
+
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import { useToast } from '../hooks/useToast';
-import { supabase } from '../lib/supabaseClient';
+import { useAuth } from '@/hooks/useAuth';
+import { useToast } from '@/hooks/useToast';
+import { supabase } from '@/lib/supabaseClient';
 
 const Login = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { user, signInWithPassword, signUpWithPassword, signInWithMagicLink, loading } =
     useAuth();
   const { toast } = useToast();
@@ -19,9 +22,9 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      router.replace('/');
     }
-  }, [user, navigate]);
+  }, [user, router]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,7 +61,7 @@ const Login = () => {
           variant: 'info',
         });
       }
-      navigate('/');
+      router.replace('/');
     } catch (error) {
       console.error(error);
       toast({
@@ -174,7 +177,7 @@ const Login = () => {
         </p>
 
         <p className="mt-4 text-center text-xs text-slate-400">
-          <Link to="https://supabase.com/auth" target="_blank" rel="noreferrer">
+          <Link href="https://supabase.com/auth" target="_blank" rel="noreferrer">
             Seguridad por Supabase Auth
           </Link>
         </p>

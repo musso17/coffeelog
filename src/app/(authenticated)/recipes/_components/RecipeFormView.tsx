@@ -1,11 +1,14 @@
+'use client';
+
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import FormField from '../components/FormField';
-import { supabase } from '../lib/supabaseClient';
-import type { Recipe } from '../lib/types';
-import { useSupabaseQuery, useQueryClient } from '../hooks/useQuery';
-import { useToast } from '../hooks/useToast';
+import FormField from '@/components/FormField';
+import { supabase } from '@/lib/supabaseClient';
+import type { Recipe } from '@/lib/types';
+import { useSupabaseQuery, useQueryClient } from '@/hooks/useQuery';
+import { useToast } from '@/hooks/useToast';
 
 const methodOptions = [
   { value: 'espresso', label: 'Espresso' },
@@ -36,15 +39,16 @@ const fetchRecipeById = async (id: string) => {
 };
 
 const RecipeForm = () => {
-  const { id } = useParams<{ id: string }>();
+  const params = useParams<{ id?: string }>();
+  const id = params?.id;
   const isEditing = Boolean(id);
-  const navigate = useNavigate();
+  const router = useRouter();
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
   const { data: recipe, isLoading } = useSupabaseQuery(
     ['recipe', id],
-    () => fetchRecipeById(id!),
+    () => fetchRecipeById(id as string),
     { enabled: isEditing },
   );
 
@@ -115,7 +119,7 @@ const RecipeForm = () => {
         toast({ title: 'Receta creada', variant: 'success' });
       }
       queryClient.invalidateQueries({ queryKey: ['recipes'] });
-      navigate('/recipes');
+      router.push('/recipes');
     } catch (error) {
       console.error(error);
       toast({
@@ -147,7 +151,7 @@ const RecipeForm = () => {
           </p>
         </div>
         <Link
-          to="/recipes"
+          href="/recipes"
           className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100"
         >
           Cancelar
@@ -282,7 +286,7 @@ const RecipeForm = () => {
 
         <div className="flex justify-end gap-3">
           <Link
-            to="/recipes"
+            href="/recipes"
             className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100"
           >
             Cancelar
