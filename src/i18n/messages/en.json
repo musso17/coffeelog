@@ -1,0 +1,14 @@
+{
+  "common": {
+    "appName": "Cafe Log",
+    "loading": "Loading...",
+    "verifyingSession": "Checking session...",
+    "userPlaceholder": "Guest"
+  },
+  "nav": {
+    "home": "Journal",
+    "recipes": "Recipes",
+    "analytics": "Analytics",
+    "logout": "Log out"
+  }
+}

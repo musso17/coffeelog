@@ -8,9 +8,11 @@ import {
   useMemo,
   useState,
 } from 'react';
-import type { ReactNode } from 'react';
-import type { AuthError, Session, User } from '@supabase/supabase-js';
+
 import { supabase } from '@/lib/supabaseClient';
+
+import type { AuthError, Session, User } from '@supabase/supabase-js';
+import type { ReactNode } from 'react';
 
 type SignInPayload = { email: string; password: string };
 type SignUpPayload = { email: string; password: string };

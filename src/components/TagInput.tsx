@@ -32,7 +32,7 @@ export const TagInput = ({ values, onChange, placeholder = 'Añade un descriptor
   };
 
   return (
-    <div className="rounded-md border border-slate-300 px-2 py-2 shadow-sm focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-200">
+    <div className="rounded-md border border-slate-300 p-2 shadow-sm focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-200">
       <div className="flex flex-wrap gap-2">
         {values.map((tag) => (
           <span

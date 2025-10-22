@@ -1,0 +1,14 @@
+{
+  "common": {
+    "appName": "Cafe Log",
+    "loading": "Cargando...",
+    "verifyingSession": "Verificando sesión...",
+    "userPlaceholder": "Usuario"
+  },
+  "nav": {
+    "home": "Diario",
+    "recipes": "Recetas",
+    "analytics": "Analytics",
+    "logout": "Cerrar sesión"
+  }
+}

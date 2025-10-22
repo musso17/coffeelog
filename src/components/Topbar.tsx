@@ -1,12 +1,16 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { useAuth } from '../hooks/useAuth';
+import { useTranslations } from 'next-intl';
+
+import { useAuth } from '@/hooks/useAuth';
+import { Link, usePathname, useRouter } from '@/i18n/navigation';
 
 export const Topbar = () => {
+  const tNav = useTranslations('nav');
+  const tCommon = useTranslations('common');
   const router = useRouter();
   const pathname = usePathname();
+  const currentPath = (pathname ?? '/') as string;
   const { user, signOut } = useAuth();
 
   const handleLogout = async () => {
@@ -14,10 +18,11 @@ export const Topbar = () => {
     router.replace('/login');
   };
 
-  const navItems = [
-    { href: '/', label: 'Diario', exact: true },
-    { href: '/recipes', label: 'Recetas' },
-    { href: '/analytics', label: 'Analytics' },
+  type NavPath = '/' | '/recipes' | '/analytics';
+  const navItems: Array<{ href: NavPath; label: string; exact?: boolean }> = [
+    { href: '/', label: tNav('home'), exact: true },
+    { href: '/recipes', label: tNav('recipes') },
+    { href: '/analytics', label: tNav('analytics') },
   ];
 
   return (
@@ -29,14 +34,14 @@ export const Topbar = () => {
               Cafe
             </span>
             <span className="text-xl font-semibold tracking-wide text-slate-100 group-hover:text-white">
-              Log
+              {tCommon('appName')}
             </span>
           </Link>
           <nav className="hidden items-center gap-4 text-sm font-medium text-muted-400 md:flex">
             {navItems.map((item) => {
               const isActive = item.exact
-                ? pathname === item.href
-                : pathname.startsWith(item.href);
+                ? currentPath === item.href
+                : currentPath.startsWith(item.href);
               return (
                 <Link
                   key={item.href}
@@ -56,14 +61,14 @@ export const Topbar = () => {
         </div>
         <div className="flex items-center gap-4">
           <span className="hidden text-sm text-muted-400 sm:block">
-            {user?.user_metadata?.name || user?.email || 'Usuario'}
+            {user?.user_metadata?.name || user?.email || tCommon('userPlaceholder')}
           </span>
           <button
             type="button"
             onClick={handleLogout}
             className="rounded-full border border-primary-500/40 px-4 py-2 text-sm font-medium text-primary-200 transition hover:border-primary-400 hover:text-white"
           >
-            Logout
+            {tNav('logout')}
           </button>
         </div>
       </div>
